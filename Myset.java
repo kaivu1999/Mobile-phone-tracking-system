@@ -11,12 +11,17 @@ public class Myset<E> {
 	public void Insert(Object o){
 		if (!this.IsMember((E) o)) 
 		{
-			this.l.insertFirst((E) o);
+			this.l.insertLast((E) o);
 		}
 	}
 
+	public int size()
+	{
+		return this.l.size();
+	}
+
 	public E Delete(Object o){
-		return (this.l.removeData((E) o));
+		return (this.l.removeData((E)o));
 	}
 
 	public void printSet()

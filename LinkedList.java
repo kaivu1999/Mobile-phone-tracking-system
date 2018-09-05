@@ -75,6 +75,19 @@ public class LinkedList<E>{
  		return false;
  	}
 
+ 	// ***public Node<E> getMember(E data){
+ 	// 	// System.out.println("Searching for " + data + " we have size " + size);
+ 	// 	Node<E> ptr = head.getNext();
+ 	// 	int s = this.size;
+ 	// 	for (int i = 0;i<s ;i++ ) {
+ 	// 		// System.out.println(ptr.data);
+ 	// 		if(ptr.data == data)
+ 	// 			return ptr;
+ 	// 		ptr = ptr.getNext();
+ 	// 	}
+ 	// 	return null;
+ 	// }
+
  	public E getFirst()
  	{
  		return head.getNext().data;
@@ -90,6 +103,15 @@ public class LinkedList<E>{
  		Node<E> noden = new Node(data, head , head.getNext());
  		noden.getNext().setPrev(noden);
  		head.setNext(noden);
+ 		size++;
+ 		// System.out.println("Inserted " + data); 
+ 	}
+
+ 	public void insertLast(E data)
+ 	{
+ 		Node<E> noden = new Node(data, tail.getPrev() , tail.getNext());
+ 		tail.setPrev(noden);
+ 		noden.getPrev().setNext(noden);
  		size++;
  		// System.out.println("Inserted " + data); 
  	}
@@ -131,11 +153,11 @@ public class LinkedList<E>{
  	{	
  		try{
 	 		Node<E> nodeD = getNode(data);
-	 		System.out.println(nodeD.getData() + "previous data :" + nodeD.getPrev().getData() + "Next data :" + nodeD.getNext().getData());
+	 		// System.out.println(nodeD.getData() + "previous data :" + nodeD.getPrev().getData() + "Next data :" + nodeD.getNext().getData());
 	 		Node<E> previousnode = nodeD.getPrev();
 	 		Node<E> nextnode = nodeD.getNext();
-	 		System.out.println(previousnode.getData());
-	 		System.out.println(nodeD.getData());
+	 		// System.out.println(previousnode.getData());
+	 		// System.out.println(nodeD.getData());
 	 		previousnode.setNext(nextnode);
 	 		nextnode.setPrev(previousnode);
 	 		size--;
@@ -154,12 +176,12 @@ public class LinkedList<E>{
  		int s = this.size;
  		for (int i = 0;i<s ;i++ ) {
  			// System.out.println(ptr.data);
- 		System.out.println("check if data : "+data+" = "+ptr.data);
+ 		// System.out.println("check if data : "+data+" = "+ptr.data);
  			if (ptr.data == data)
  				return ptr;
  			ptr = ptr.getNext();
  		}
- 		System.out.println("the node with the asked data" + data + " doesn't exist.");
+ 		// System.out.println("the node with the asked data" + data + " doesn't exist.");
  		return null;
  	}
 
@@ -222,7 +244,7 @@ public class LinkedList<E>{
  	public E getChildat(int i)
  	{
  		Node<E> ptr  = head;
- 		for (int j =0 ; j < i ; j++ ) {
+ 		for (int j =0 ; j <= i ; j++ ) {
  			ptr = ptr.next;
  		}
  		return ptr.data;
@@ -232,3 +254,4 @@ public class LinkedList<E>{
 
 
 }	
+	

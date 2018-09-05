@@ -14,21 +14,23 @@ public class Exchange{
 		
 	}
 	
-	
-
-	
 	public int getid()
 	{
+		// System.out.println("hi inside of getid");
+		// System.out.println("the id is :" + this.id);
 		return this.id;
 	}
 	
 	public void setid(int id)
 	{
+		// System.out.println("hi " + id);
 		this.id = id;
 	}
 	
 	public MobilePhoneSet getMobileList()
 	{
+			// System.out.println("a");
+
 		return this.mobiles;
 	}
 	
@@ -54,7 +56,7 @@ public class Exchange{
 
 	public Exchange child(int i){
 		// returns ith child
-		return listChildren.getChild(i);
+		return this.listChildren.getChild(i);
 	}	
 
 	public Boolean isRoot(){
@@ -74,8 +76,4 @@ public class Exchange{
 
 	}
 
-	public MobilePhoneSet residentSet(){
-		// this returns the resident set of mobile phones of the exchange
-		return this.mobiles;
-	}
 }

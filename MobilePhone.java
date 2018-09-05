@@ -6,8 +6,17 @@ public class MobilePhone{
 	MobilePhone(int number){
 		this.uniqueId = number;
 	}
+	MobilePhone()
+	{
+		
+	}
 
 	public int number(){
+		return this.uniqueId;
+	}
+
+	public int getNumber()
+	{
 		return this.uniqueId;
 	}
 
