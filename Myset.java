@@ -24,9 +24,9 @@ public class Myset<E> {
 		return (this.l.removeData((E)o));
 	}
 
-	public void printSet()
+	public String printSet()
 	{
-		this.l.printL();
+		return this.l.printL();
 	}
 
 

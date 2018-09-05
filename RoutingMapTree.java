@@ -148,7 +148,6 @@ public class RoutingMapTree{
 
 		for ( String ss : inputWords ) {
 
-			System.out.println(ss);
 		}
 
 		
@@ -161,8 +160,6 @@ public class RoutingMapTree{
 				Exchange nodeToAdd = new Exchange();
 				nodeToAdd.setid(Integer.parseInt(inputWords[2]));
 				// System.out.println("i have set id of exchange as " + Integer.parseInt(inputWords[2]) + " is it equal to " + nodeToAdd.getid());
-			
-
 				nodeToAdd.setparent(temp);
 				// System.out.println("size of the childList before adding the exchange:" + temp.getListChildren().size());
 				temp.getListChildren().Insert(nodeToAdd);
@@ -170,7 +167,7 @@ public class RoutingMapTree{
 			}
 
 
-			if (inputWords[0].equals("switchOnMobile")) {   //*** special case if obile is already there and is in any other base station then put in other base station.
+			else if (inputWords[0].equals("switchOnMobile")) {   //*** special case if obile is already there and is in any other base station then put in other base station.
 				// Search parseInt(inputWords[2] in all tree and return basestaion b
 				Exchange b = this.searchExchange(Integer.parseInt(inputWords[2])); // *** also make sure that this base station is actually a base station and not any other exchange....
 				MobilePhone a = new MobilePhone(Integer.parseInt(inputWords[1]));
@@ -179,7 +176,7 @@ public class RoutingMapTree{
 			}
 
 			
-			if (inputWords[0].equals("switchOffMobile")) {
+			else if (inputWords[0].equals("switchOffMobile")) {
 				// Search mobile id parseInt(inputWords[1]) in Mobileset of root Exchange and then return (MobilePhomne a)
 				LinkedList<MobilePhone> list = this.root.getMobileList().getList();
 				// now this list has nodes of which nodes.data are of type MobilePhone
@@ -188,12 +185,14 @@ public class RoutingMapTree{
 				// System.out.println("size befor deleting is :" + size);
 				int i = 0;
 				for (i = 0; i < size ;i++ ) {	
-					if (list.getChildat(i).number() ==	 Integer.parseInt(inputWords[1])) {					
+					if (list.getChildat(i).number() ==	 Integer.parseInt(inputWords[1])) 
+					{					
 						a = list.getChildat(i);
 						break;
 					}
 				}
-				if (i==size) {
+				if (i==size) 
+				{
 					System.out.println("The mobile phone is alreday off"); // precisely didn't find mobile number in mobilephoneset. 
 				}
 				//**** check if size == i
@@ -205,32 +204,31 @@ public class RoutingMapTree{
 				
 			}
 
-			if (inputWords[0].equals("queryNthChild")) {
+			else if (inputWords[0].equals("queryNthChild")) {
 				// funtiond exchange a which is the ( parseInt(inputWords[2] )th child of Exchange with id parseInt(inputWords[1]
 				Exchange b = this.searchExchange(Integer.parseInt(inputWords[1]));
 				// System.out.println("id of the parent is :" + b.getid());
-
 				// System.out.println("Now I want to print the id of the " + Integer.parseInt(inputWords[2]) + "th " + "child of the Exchange with id " + b.getid());
 
 				Exchange child = b.child(Integer.parseInt(inputWords[2]));
 				if(child.getid() >= 0)   // ******  
 				{
-					System.out.println(child.getid());
+					System.out.println(actionMessage + ": "+ child.getid());
 				}
 				else
-						System.out.println("null");
+					System.out.println(actionMessage + ": "+"null");
 			}
 
 
-			if (inputWords[0].equals("queryMobilePhoneSet")) {
+			else if (inputWords[0].equals("queryMobilePhoneSet")) {
 				// find exchange a with id parseInt(inputWords[1]
 				Exchange b = this.searchExchange(Integer.parseInt(inputWords[1]));
-				b.getMobileList().printSet();
+				String ans = b.getMobileList().printSet();
 				// print ids of all elements in MobilePhoneSet of a ..... there is a funtion most probably
+				System.out.println(inputWords[0]+ " " + inputWords[1] + ": " +ans);
 			}
-		
 
-			
+					
 	}
 }
 	

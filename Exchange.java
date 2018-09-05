@@ -71,7 +71,7 @@ public class Exchange{
 		// returns ith subtree
 		
 		RoutingMapTree a = new RoutingMapTree();
-		a.setRoot(this.child(i));
+		a.setRoot(this.child(i));//***
 		return a;
 
 	}

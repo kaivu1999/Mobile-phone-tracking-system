@@ -10,13 +10,20 @@ public class MobilePhoneSet extends Myset<MobilePhone>{
  		
  	// }
 
- 	public void printSet()
+ 	public String printSet()
 	{
-			System.out.println("number of mobiles is :" + this.size());
-
-		for(int i=0;i<this.size() ;i++){
+			// System.out.println("number of mobiles is :" + this.size());
+		String ans = ": ";
+		for(int i=0;i<this.size() ;i++ )
+		{
+			if (i!=0) 
+			{
+				ans += ", ";
+			}
 			int p  = this.getList().getChildat(i).number();
-			System.out.println(p);
+			ans = ans + p;	
+
 		}
+		return ans;
 	}
 }

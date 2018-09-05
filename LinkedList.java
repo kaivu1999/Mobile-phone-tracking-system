@@ -185,13 +185,15 @@ public class LinkedList<E>{
  		return null;
  	}
 
- 	public void printL(){
- 		System.out.println("Size of the list is "+ size);
+ 	public String printL(){
+ 		String ans = "";
+ 		// System.out.println("Size of the list is "+ size);
  		Node<E> ptr = tail.getPrev();
  		for (int i = 0;i< size ; i++ ) {
- 		System.out.println(ptr.data);
- 		ptr = ptr.getPrev();
+ 			ans +=ptr.data;
+ 			ptr = ptr.getPrev();
  		}
+ 		return ans;
  		
  	}
  	
