@@ -8,13 +8,15 @@ public class assn2checker
 	{
 		BufferedReader br = null;
 		RoutingMapTree r = new RoutingMapTree();
-
+		int i = 1;
 		try {
 			String actionString;
-			br = new BufferedReader(new FileReader("actions1.txt"));
+			br = new BufferedReader(new FileReader("nactions1.txt"));
 
 			while ((actionString = br.readLine()) != null) {
-				r.performAction(actionString);
+				System.out.println(i);
+				i++;
+				System.out.println(r.performAction(actionString));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
