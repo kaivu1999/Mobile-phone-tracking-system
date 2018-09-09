@@ -109,11 +109,11 @@ public class LinkedList<E>{
 
  	public void insertLast(E data)
  	{
- 		Node<E> noden = new Node(data, tail.getPrev() , tail.getNext());
+ 		Node<E> noden = new Node(data, tail.getPrev() , tail);
  		tail.setPrev(noden);
  		noden.getPrev().setNext(noden);
  		size++;
- 		// System.out.println("Inserted " + data); 
+ 		// System.out.println("Inserted at last" + data); 
  	}
 
  	public E removeFirst()
@@ -152,10 +152,10 @@ public class LinkedList<E>{
  	public E removeData(E data)
  	{	
  		try{
-	 		Node<E> nodeD = getNode(data);
-	 		// System.out.println(nodeD.getData() + "previous data :" + nodeD.getPrev().getData() + "Next data :" + nodeD.getNext().getData());
-	 		Node<E> previousnode = nodeD.getPrev();
-	 		Node<E> nextnode = nodeD.getNext();
+
+			 Node<E> nodeD = getNode(data);
+			 Node<E> previousnode = nodeD.getPrev(); 
+			 Node<E> nextnode = nodeD.getNext();			 
 	 		// System.out.println(previousnode.getData());
 	 		// System.out.println(nodeD.getData());
 	 		previousnode.setNext(nextnode);
@@ -165,7 +165,9 @@ public class LinkedList<E>{
 	 	}
 	 	catch (Exception e)
 	 	{
-	 		System.out.println("Data not found");
+			
+			System.out.println("Data not found and");
+			System.out.println(e);
 	 		return null;
 	 	}
  	}
