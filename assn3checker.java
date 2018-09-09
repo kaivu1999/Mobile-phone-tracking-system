@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class checker
+public class assn3checker
 {
 	public static void main ( String args [])
 	{
@@ -12,9 +12,10 @@ public class checker
 		try {
 			String actionString;
 			br = new BufferedReader(new FileReader("actions.txt"));
-
+			int i = 1;
 			while ((actionString = br.readLine()) != null) {
-				r.performAction(actionString);
+				System.out.println(i +": " +  r.performAction(actionString));
+				i++;
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

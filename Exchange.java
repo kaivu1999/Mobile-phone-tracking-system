@@ -13,6 +13,29 @@ public class Exchange{
 	{
 		
 	}
+	int depth(Exchange a){
+		int b =0;
+		Exchange ptr = new Exchange();
+		ptr = a;
+		while(ptr.parent()!=null)
+		{
+			ptr = ptr.parent();
+			b++;
+		}
+		return b;
+	}
+	public Exchange[] parents(){
+		int num = 0;
+		Exchange ptr = this;
+		num = depth(this) + 1;
+		Exchange[] arr = new Exchange[num];
+		for(int i = 0; i< num ; i ++)
+		{
+			arr[i] = ptr;
+			ptr = ptr.parent; 
+		}
+		return arr; 
+	}
 	
 	public int getid()
 	{
