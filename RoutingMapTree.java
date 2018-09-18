@@ -202,40 +202,45 @@ public class RoutingMapTree{
 
 
 		else if (inputWords[0].equals("switchOnMobile")) {   //*** special case if obile is already there and is in any other base station then put in other base station.
-			// Search parseInt(inputWords[2] in all tree and return basestaion b
-			Exchange b = this.searchExchange(Integer.parseInt(inputWords[2])); // *** also make sure that this base station is actually a base station and not any other exchange....
-			// check if the mobile number exists.
-			Exchange ourRoot = this.getRoot();
-			LinkedList<MobilePhone> MobilePhones = this.MobilePhones.getList();
-			int sizeOfAll = MobilePhones.size();
-			LinkedList<MobilePhone> ourMobiles = ourRoot.getMobileList().getList();
-			int s = ourMobiles.size();
-			int temp = 0;
-			MobilePhone a = new MobilePhone();
-			for(int i = 0 ; i < sizeOfAll; i++){
-				if (Integer.parseInt(inputWords[1]) == MobilePhones.getChildat(i).getNumber()) {			
-					a = MobilePhones.getChildat(i);
-					temp = 1;
-					break;	
+			try{// Search parseInt(inputWords[2] in all tree and return basestaion b
+				Exchange b = this.searchExchange(Integer.parseInt(inputWords[2])); // *** also make sure that this base station is actually a base station and not any other exchange....
+				// check if the mobile number exists.
+				Exchange ourRoot = this.getRoot();
+				LinkedList<MobilePhone> MobilePhones = this.MobilePhones.getList();
+				int sizeOfAll = MobilePhones.size();
+				LinkedList<MobilePhone> ourMobiles = ourRoot.getMobileList().getList();
+				int s = ourMobiles.size();
+				int temp = 0;
+				MobilePhone a = new MobilePhone();
+				for(int i = 0 ; i < sizeOfAll; i++){
+					if (Integer.parseInt(inputWords[1]) == MobilePhones.getChildat(i).getNumber()) {			
+						a = MobilePhones.getChildat(i);
+						temp = 1;
+						break;	
+					}
+				}
+				for (int i = 0; i<s && temp > 0; i ++ ) {
+					if (Integer.parseInt(inputWords[1]) == ourMobiles.getChildat(i).getNumber()) {
+						System.out.println("MobilePhone already exists and is switched on.");			
+						temp = 2;	
+					}		
+				}	
+
+				
+				// return the MobilePhone a which has the id parseInt(inputWords[1] in basestaion b
+				if(temp == 1)
+				{
+					this.switchOn(a,b);	
+				}
+				else if (temp == 0){ // this is when the mobile phone doeno't exist before.
+					a = new MobilePhone(Integer.parseInt(inputWords[1]));
+					this.MobilePhones.Insert(a);
+					this.switchOn(a,b);
 				}
 			}
-			for (int i = 0; i<s && temp > 0; i ++ ) {
-				if (Integer.parseInt(inputWords[1]) == ourMobiles.getChildat(i).getNumber()) {
-					System.out.println("MobilePhone already exists and is switched on.");			
-					temp = 2;	
-				}		
-			}	
-
-			
-			// return the MobilePhone a which has the id parseInt(inputWords[1] in basestaion b
-			if(temp == 1)
+			catch(Exception e)
 			{
-				this.switchOn(a,b);	
-			}
-			else if (temp == 0){ // this is when the mobile phone doeno't exist before.
-				a = new MobilePhone(Integer.parseInt(inputWords[1]));
-				this.MobilePhones.Insert(a);
-				this.switchOn(a,b);
+				System.out.println(e);
 			}
 			answer = "";
 
@@ -243,42 +248,47 @@ public class RoutingMapTree{
 
 		
 		else if (inputWords[0].equals("switchOffMobile")) {
-			// Search mobile id parseInt(inputWords[1]) in Mobileset of root Exchange and then return (MobilePhomne a)
-			LinkedList<MobilePhone> list = this.root.getMobileList().getList();
-			LinkedList<MobilePhone> listOffAllMobiles = this.MobilePhones.getList();
-			// now this list has nodes of which nodes.data are of type MobilePhone
-			MobilePhone a = new MobilePhone();
-			int size = list.size();	
-			int allsize = listOffAllMobiles.size();
-			int i = 0;
-			int temp = 0; // for checking difference between exist and off
-			for ( i = 0 ; i<allsize ; i++)
-			{
-				if(listOffAllMobiles.getChildat(i).number() == Integer.parseInt((inputWords[1])))
+			try{
+				// Search mobile id parseInt(inputWords[1]) in Mobileset of root Exchange and then return (MobilePhomne a)
+				LinkedList<MobilePhone> list = this.root.getMobileList().getList();
+				LinkedList<MobilePhone> listOffAllMobiles = this.MobilePhones.getList();
+				// now this list has nodes of which nodes.data are of type MobilePhone
+				MobilePhone a = new MobilePhone();
+				int size = list.size();	
+				int allsize = listOffAllMobiles.size();
+				int i = 0;
+				int temp = 0; // for checking difference between exist and off
+				for ( i = 0 ; i<allsize ; i++)
 				{
-					a = listOffAllMobiles.getChildat(i);
-					temp = 1;
-					break;
+					if(listOffAllMobiles.getChildat(i).number() == Integer.parseInt((inputWords[1])))
+					{
+						a = listOffAllMobiles.getChildat(i);
+						temp = 1;
+						break;
+					}
 				}
-			}
-			for (i = 0; i < size ;i++ ) {	
-				if (list.getChildat(i).number() ==	 Integer.parseInt(inputWords[1])) 
-				{					
-					a = list.getChildat(i);
-					break;
+				for (i = 0; i < size ;i++ ) {	
+					if (list.getChildat(i).number() ==	 Integer.parseInt(inputWords[1])) 
+					{					
+						a = list.getChildat(i);
+						break;
+					}
 				}
+				if (i==size) 
+				{
+					if (temp == 0) {
+						System.out.println("The mobile doesnot exist");
+					}
+					else 
+						System.out.println("The mobile phone is alreday off"); // precisely didn't find mobile number in mobilephoneset and the mobile phone exist. 
+				}
+				else
+					this.switchOff(a);
 			}
-			if (i==size) 
+			catch(Exception e)
 			{
-				if (temp == 0) {
-					System.out.println("The mobile doesnot exist");
-				}
-				else 
-					System.out.println("The mobile phone is alreday off"); // precisely didn't find mobile number in mobilephoneset and the mobile phone exist. 
+				System.out.println(e);
 			}
-			else
-				this.switchOff(a);
-		
 
 			answer = "";
 
@@ -320,7 +330,7 @@ public class RoutingMapTree{
 			}
 		}	
 
-		else if(inputWords[0].equals("queryFindPhone"))
+		else if(inputWords[0].equals("findPhone"))
 		{
 			LinkedList<MobilePhone> list = this.root.getMobileList().getList();
 			MobilePhone a = new MobilePhone();
@@ -334,31 +344,41 @@ public class RoutingMapTree{
 				}
 			}
 			if (i == size) {
-				System.out.println("The phone is not registered to any BaseStation");
-
-			}
+				answer = "queryFindPhone " + inputWords[1] + ": Error - No mobile phone with identifier " + inputWords[1] + " found in the network";
+			}	
 			else
 			{
 				Exchange findP = findPhone(a);
-				answer = inputWords[0] + ": " + findP.getid();
+				answer = "queryFindPhone " +inputWords[1] + ": " + findP.getid();
 			}
 		}
 
-		else if(inputWords[0].equals("queryLowestRouter"))
+		else if(inputWords[0].equals("lowestRouter"))
 		{
-			Exchange a = this.searchExchange(Integer.parseInt(inputWords[1]));
-			Exchange b = this.searchExchange(Integer.parseInt(inputWords[2]));
-			Exchange ans = lowestRouter(a, b);
-			answer = inputWords[0] + ": " + ans.getid();
+			try{
+				Exchange a = this.searchExchange(Integer.parseInt(inputWords[1]));
+				Exchange b = this.searchExchange(Integer.parseInt(inputWords[2]));
+				Exchange ans = lowestRouter(a, b);
+				answer = "queryLowestRouter" + " " + inputWords[1] + " " + inputWords[2]  + ": " + ans.getid();
+			}
+			catch(Exception e)
+			{
+				System.out.println(e);
+			}
 		}
-		else if(inputWords[0].equals("queryFindCallPath"))
+		else if(inputWords[0].equals("findCallPath"))
 		{
 			LinkedList<MobilePhone> list = this.root.getMobileList().getList();
+			LinkedList<MobilePhone> listAll = this.MobilePhones.getList();
+
 			MobilePhone a = new MobilePhone();
 			MobilePhone b = new MobilePhone();
 			int size = list.size();	
 			int i = 0;
 			int j = 0;
+			int s = listAll.size();
+			int k = 0;
+			int m = 0;
 			for (i = 0; i < size ;i++ ) {	
 				if (list.getChildat(i).number() ==	 Integer.parseInt(inputWords[1])) 
 				{					
@@ -374,14 +394,45 @@ public class RoutingMapTree{
 					break;
 				}
 			}
+
+
 			if (i==size || j==size) {
-				System.out.println("Mobiles are not currently registered to any base station.");
-				answer="";
+
+				for ( k = 0 ; k < s ; k++) {
+					if (listAll.getChildat(k).number() ==	 Integer.parseInt(inputWords[1])) 
+					{					
+						break;
+					}
+				}
+				for ( m = 0 ; m < s ; m++) {
+					if (listAll.getChildat(m).number() ==	 Integer.parseInt(inputWords[2])) 
+					{					
+						break;
+					}
+				}
+
+				if ( k == s && m == s)
+				{
+					answer = "queryFindCallPath "+ inputWords[1] + " " + inputWords[2] + ": Error - Mobile phones with identifier "+ inputWords [1] + " and " + inputWords[2] +  " do not exist.";
+				}
+				else if (k != s && j != s && i == size && j == size) {
+					answer = "queryFindCallPath "+ inputWords[1] + " " + inputWords[2] + ": Error - Mobile  phones with identifier "+ inputWords [1] + " and " + inputWords[2] +  " are currently switched off";
+					
+				}
+				else if (k != s && j != s && i == size && j != size) {
+					answer = "queryFindCallPath "+ inputWords[1] + " " + inputWords[2] + ": Error - Mobile phone with identifier "+ inputWords[1] +  " is currently switched off";
+					
+				}
+				else if (k != s && j != s && j == size && i!= size) {
+					answer = "queryFindCallPath "+ inputWords [1]+ " " + inputWords[2] + ": Error - Mobile phone with identifier "+ inputWords[2] +  " is currently switched off";
+					
+				}
+			
 			}
 			else
 			{
 				ExchangeList ans = routeCall(a, b);
-				answer = inputWords[0] + ans.printSet();
+				answer = "queryFindCallPath" + " " + inputWords[1] + " " + inputWords[2]+ ans.printSet();
 			}
 			
 		}

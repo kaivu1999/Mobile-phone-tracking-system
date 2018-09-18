@@ -208,14 +208,14 @@ public class LinkedList<E>{
  		Node<E> ptr2 = b.head.getNext();
 
  		for (int i = 0; i < s1 ;i++ ) {
- 			c.insertFirst(ptr1.getData());
+ 			c.insertLast(ptr1.getData());
  			ptr1 = ptr1.getNext();
 
  		}
 
  		for ( int i = 0 ; i<s2 ; i++ ) {
  			if (!c.isMember(ptr2.getData())) {
- 				c.insertFirst(ptr2.getData());
+ 				c.insertLast(ptr2.getData());
  			}
  			ptr2 = ptr2.getNext();
  		}
