@@ -120,6 +120,8 @@ public class RoutingMapTree{
 		Exchange bParents[] = b.parents();
 		int aSize=aParents.length;
 		int bSize=bParents.length;
+		// System.out.println("Size of the list of parents for a is : " + aSize);
+		// System.out.println("Size of the list of parents for b is : " + bSize);
 		int i = aSize-1;
 		int j = bSize-1;
 		for(; i>=0 && j>=0 ;)
@@ -128,7 +130,7 @@ public class RoutingMapTree{
 			{
 				return aParents[i+1];
 			}
-			else if(aParents[i].getid() == bParents[j].getid() && i==0 && j==0)
+			else if(aParents[i].getid() == bParents[j].getid() && (i==0 || j==0))
 			{
 				return aParents[i];
 			}				
@@ -363,7 +365,7 @@ public class RoutingMapTree{
 			}
 			catch(Exception e)
 			{
-				System.out.println(e);
+				System.out.println(e + "The exchange requested might not exist...");
 			}
 		}
 		else if(inputWords[0].equals("findCallPath"))
